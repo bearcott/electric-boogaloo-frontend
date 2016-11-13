@@ -10,6 +10,11 @@ module.exports = [
 		loader: "file"
 	},
 	{
+		test: /\.mp3/,
+		exclude: /(node_modules|bower_components)/,
+		loader: "url-loader"
+	},
+	{
 		test: /\.(woff|woff2)$/,
 		exclude: /(node_modules|bower_components)/,
 		loader: "url?prefix=font/&limit=5000"
