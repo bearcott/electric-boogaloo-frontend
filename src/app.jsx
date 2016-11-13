@@ -7,6 +7,8 @@ import Searchbar from './components/Searchbar';
 import SongGame from './components/SongGame';
 import songs from './static/songs';
 import chordGenerator from './utils/chordGenerator';
+import teoria from './utils/teoria';
+
 
 
 export default class App extends React.Component {
@@ -14,11 +16,47 @@ export default class App extends React.Component {
     super(props);
     this.notes = ['G','Gs','A','As','B','C','Cs','D','Ds','E','F','Fs'];
     this.tuning = ['G','C','E','A'];
+    this.interval = null;
     this.state = {
       menu: null,
       chord: 'C',
       song: null
     }
+  }
+  parseGameText(text) {
+    const arr = text.replace(/[^A-Za-z0-9]/g, ' ').replace(/\s+/g, " ").split(' ');
+    let phrase = [];
+    let chords = [];
+    let words = [];
+    let inChords = true;
+    arr.forEach(word=>{
+      if (typeof word[0] === 'undefined') return;
+      //make sure it could be a chord
+      if (word[0] !== word[0].toLowerCase()) {
+        try {
+          let chord = chordGenerator(word);
+          if (!inChords && word.length && chords.length) {
+            phrase.push({chords,words: words.join(' ')});
+            chords = [];
+            words = [];
+          }
+          chords.push({name: word, fingering: chord[0]});
+          inChords = true;
+        }catch(e){
+          if (inChords && word.length && chords.length) {
+            phrase.push({chords,words: words.join(' ')});
+            chords = [];
+            words = [];
+          }
+          words.push(word);
+          inChords = false;
+        }
+      }else{
+        words.push(word);
+      }
+    })
+
+    return phrase;
   }
   fretboard() {
     const maxFrets = 4;
@@ -50,7 +88,6 @@ export default class App extends React.Component {
     )
   }
   showChords(note) {
-    console.log(note);
     this.setState({
       song: null,
       chord: note,
@@ -59,14 +96,39 @@ export default class App extends React.Component {
     })
   }
   showSongs(song) {
+    const game = this.parseGameText(song.text[0]);
     this.setState({
       song: song.title,
       album: song.album,
       artist: song.artist,
+      text: song.text[0],
+
+      progress: 0,
+      chords: game[0].chords,
+      words: game[0].words,
+      game: game,
+
       chord: null,
       menu: 'songs',
       fingering: null
     })
+    clearInterval(this.interval);
+    this.gameStart();
+  }
+  gameStart() {
+    //next cycle
+    this.interval = setInterval(()=>{
+      if (this.state.progress == this.state.game.length-1) {
+        this.setState({menu: null});
+        clearInterval(this.interval);
+        return;
+      }
+      this.setState({
+        progress: ++this.state.progress,
+        chords: this.state.game[this.state.progress].chords,
+        words: this.state.game[this.state.progress].words
+      });
+    },4000);
   }
   suggestedSongs() {
     const links = [];
@@ -81,11 +143,9 @@ export default class App extends React.Component {
     }
     return links
   }
-  componentDidMount() {
-
-  }
   render() {
     let subtitle = '';
+    let gameText = '';
     switch (this.state.menu) {
       case 'chords':
         subtitle = `> ${this.state.chord} chord`;
@@ -112,7 +172,7 @@ export default class App extends React.Component {
           </div>
           ) : null}
           { (this.state.menu == 'songs') ? (
-            <SongGame/>
+            <SongGame chords={this.state.chords} words={this.state.words}/>
           ) : null}
         </div>
         <div className="row menu">

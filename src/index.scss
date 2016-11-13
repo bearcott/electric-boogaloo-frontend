@@ -115,6 +115,7 @@ h1.title {
       }
       .note {
         height: 30px;
+        line-height: 30px;
         width: 47px;
         padding: 0 10px;
         z-index: 100;
@@ -185,4 +186,51 @@ h1.title {
 .chordCanvas {
   width: 95px;
   overflow: hidden;
+}
+@keyframes lmao {
+  from {width: 0%;}
+  to {width: 100%;}
+}
+@keyframes wat {
+  from {left: 200%;}
+  to {left: 50%;}
+}
+.songspace {
+  text-align: center;
+  .lyrics {
+    width: 100%;
+    display: block;
+    float: left;
+  }
+  .stuff {
+    width: 50%;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    float: left;
+    animation-duration: 1s;
+    animation-name: wat;
+  }
+  .progress {
+    width: 100%;
+    text-align: left;
+    float: left;
+    .bar {
+      animation-name: lmao;
+      border-bottom: 5px solid;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+  .lmao {
+    float: left;
+    clear: none;
+    canvas {
+      display: block;
+    }
+  }
 }
