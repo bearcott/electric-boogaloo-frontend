@@ -11,6 +11,10 @@ accepts@~1.3.3:
     mime-types "~2.1.11"
     negotiator "0.6.1"
 
+accidental-value@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/accidental-value/-/accidental-value-1.0.0.tgz#9d08753a8ce5f8a7e0b491579ef5c1e01889e80f"
+
 acorn@^3.0.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
@@ -1207,6 +1211,10 @@ d@^0.1.1, d@~0.1.1:
   dependencies:
     es5-ext "~0.10.2"
 
+daccord@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/daccord/-/daccord-1.1.0.tgz#36f0f39ab1f575f7709dd97d36ffe6d88b78d1b4"
+
 dashdash@^1.12.0:
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/dashdash/-/dashdash-1.14.0.tgz#29e486c5418bf0f356034a993d51686a33e84141"
@@ -1778,6 +1786,13 @@ header-case@^1.0.0:
     no-case "^2.2.0"
     upper-case "^1.1.3"
 
+helmholtz@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/helmholtz/-/helmholtz-2.0.2.tgz#54630621bd87575b0c2bd9147087a79a8fe30811"
+  dependencies:
+    accidental-value "^1.0.0"
+    notecoord "^1.0.1"
+
 hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
@@ -1924,6 +1939,10 @@ ini@~1.3.0:
 interpret@^0.6.4:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-0.6.6.tgz#fecd7a18e7ce5ca6abfb953e1f86213a49f1625b"
+
+interval-coords@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/interval-coords/-/interval-coords-1.1.1.tgz#4a83a402146d95a4db062c129b79cb34a7ecddc9"
 
 invariant@^2.2.0:
   version "2.2.1"
@@ -2568,6 +2587,10 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
+notecoord@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/notecoord/-/notecoord-1.1.0.tgz#89c42ab7bb5796a29f3c7fade9825c509d8f1ed1"
+
 npmlog@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/npmlog/-/npmlog-4.0.0.tgz#e094503961c70c1774eb76692080e8d578a9f88f"
@@ -2774,6 +2797,10 @@ pinkie-promise@^2.0.0:
 pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
+
+pitch-fq@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/pitch-fq/-/pitch-fq-1.0.0.tgz#651b3e8852f65b9555f3a28f7ae96f11e3533416"
 
 pkg-dir@^1.0.0:
   version "1.0.0"
@@ -3435,6 +3462,13 @@ sax@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
 
+scientific-notation@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/scientific-notation/-/scientific-notation-1.0.2.tgz#ccea3954fe2a979d3641c963acd99e5733639182"
+  dependencies:
+    accidental-value "^1.0.0"
+    notecoord "^1.0.1"
+
 semver@~5.3.0, "semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5":
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
@@ -3723,6 +3757,16 @@ tar@^2.0.0, tar@~2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
+teoria:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/teoria/-/teoria-2.2.0.tgz#85fc75d81febd6da0c6d13720607e3228baf2e7b"
+  dependencies:
+    daccord "^1.0.1"
+    helmholtz "^2.0.1"
+    interval-coords "^1.1.1"
+    pitch-fq "^1.0.0"
+    scientific-notation "^1.0.0"
+
 tether@^1.3.7:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/tether/-/tether-1.3.7.tgz#65578104741694f9672c808eae04a9adae7b0304"
@@ -3806,6 +3850,10 @@ uglify-to-browserify@~1.0.0:
 uid-number@~0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
+
+underscore:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
 uniq@^1.0.1:
   version "1.0.1"
