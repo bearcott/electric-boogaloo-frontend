@@ -35,10 +35,10 @@ export default ({fretboard, highlighted, clicked, short})=>{
         <div className="fret filler"></div>
         <div className="head"></div>
         <div className="strings">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+          <span className=((userbody[0])?"vibrate":'')></span>
+          <span className=((userbody[0])?"vibrate":'')></span>
+          <span className=((userbody[0])?"vibrate":'')></span>
+          <span className=((userbody[0])?"vibrate":'')></span>
         </div>
       </div>
     </div>

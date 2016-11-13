@@ -143,6 +143,9 @@ h1.title {
         height: 20%;
         display: block;
         border-bottom: 2px solid rgba(0,0,0,0.1);
+        &.vibrate {
+          border-bottom-color: rgba(0,0,0,0.5);
+        }
       }
     }
   }

@@ -5,6 +5,7 @@ import React from 'react';
 export default ({name, note, octave, isActive, isClicked})=>{
   const url = require(`../static/${name}_${note}${octave}_very-long_forte_normal.mp3`);
   let audio;
+  let div;
 
   const doClick = ()=>{
     audio.pause();
@@ -12,9 +13,10 @@ export default ({name, note, octave, isActive, isClicked})=>{
     audio.play();
   }
   return (
-    <div onClick={doClick} className={"note "+((isActive)?"active":'')}>
+    <div ref={x=>div=x} onClick={doClick} className={"note "+((isActive)?"active":'')}>
       {note}
-      {(isClicked)?doClick():''}
+      {/* {(div)?div.click():null}
+      {(isClicked)?div.click():''} */}
       <audio src={url} ref={x=>audio=x}></audio>
     </div>
   )

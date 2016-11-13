@@ -18,7 +18,7 @@ export default class App extends React.Component {
     this.notes = ['G','Gs','A','As','B','C','Cs','D','Ds','E','F','Fs'];
     this.tuning = ['G','C','E','A'];
     this.interval = null;
-    this.server = "http://sfgepxlmgr.localtunnel.me/";
+    this.server = "http://rodqgzqaza.localtunnel.me/";
     this.state = {
       menu: null,
       chord: 'C',
@@ -90,6 +90,12 @@ export default class App extends React.Component {
     )
   }
   showChords(note) {
+    fetch(this.server,{
+      method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({strings: chordGenerator(note)[0].split('').map(x=>parseInt(x))})});
     this.setState({
       song: null,
       chord: note,
@@ -148,6 +154,18 @@ export default class App extends React.Component {
   componentDidMount() {
     const req = setInterval(()=>{
       fetch(this.server).then((d)=>d.json()).then(d=>{
+        // console.log(d.neck.reverse(), this.state.fingering);
+        // fetch(this.server,{
+        //   method: 'POST',
+        // headers: {
+        //   'Content-Type': 'application/json'
+        // },
+        // body: JSON.stringify({strings: this.state.fingering.split('').map((x,i)=>{
+        //   if (parseInt(x) == d.neck.reverse()[i])
+        //     return 0
+        //   else
+        //     return parseInt(x)
+        // })})});
         this.setState({
           userfingering: d.neck.reverse(),
           userclicked: d.body.reverse().map((x,i)=>{
@@ -155,10 +173,11 @@ export default class App extends React.Component {
               return d.neck.reverse()[i]
             else
               return null
-          })
+          }),
+          userbody: d.body.reverse()
         })
       });
-    },100);
+    },50);
   }
   render() {
     let subtitle = '';
