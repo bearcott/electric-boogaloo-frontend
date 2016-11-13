@@ -3,10 +3,10 @@ import styles from '../index.scss';
 import React from 'react';
 import Note from './Note';
 
-export default ({fretboard, highlighted})=>{
+export default ({fretboard, highlighted, short})=>{
   highlighted = (highlighted) ? highlighted : "";
   return (
-    <div className="fretboard-container">
+    <div className={"fretboard-container "+((short)?'short':'')}>
       <div className="body">
       </div>
       <div className="fretboard">

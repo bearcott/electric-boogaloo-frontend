@@ -3,6 +3,8 @@ import styles from './index.scss';
 import React from 'react';
 import Fretboard from './components/Fretboard';
 import ChordChart from './components/ChordChart';
+import Searchbar from './components/Searchbar';
+import SongGame from './components/SongGame';
 import songs from './static/songs';
 import chordGenerator from './utils/chordGenerator';
 
@@ -14,7 +16,8 @@ export default class App extends React.Component {
     this.tuning = ['G','C','E','A'];
     this.state = {
       menu: null,
-      chord: 'C'
+      chord: 'C',
+      song: null
     }
   }
   fretboard() {
@@ -37,7 +40,10 @@ export default class App extends React.Component {
   suggestedChords(notes) {
     return (
       notes.filter(note=>note.indexOf('s')==-1).map(note=>(
-        <a className="" key={note} onClick={()=>this.showChords(note)}>
+        <a
+          className={(note == this.state.chord) ? 'selected' : ''}
+          key={note}
+          onClick={()=>this.showChords(note)}>
           {note} Major
         </a>
       ))
@@ -46,19 +52,29 @@ export default class App extends React.Component {
   showChords(note) {
     console.log(note);
     this.setState({
+      song: null,
       chord: note,
       menu: 'chords',
       fingering: chordGenerator(note)[0]
     })
   }
-  showSongs(note) {
-
+  showSongs(song) {
+    this.setState({
+      song: song.title,
+      album: song.album,
+      artist: song.artist,
+      chord: null,
+      menu: 'songs',
+      fingering: null
+    })
   }
   suggestedSongs() {
     const links = [];
     for (let i=0;i<10;i++) {
       links.push(
-        <a className="" key={i} onClick={()=>this.showSongs(songs[i])}>
+        <a className={(songs[i].title == this.state.song) ? 'selected' : ''}
+         key={i}
+         onClick={()=>this.showSongs(songs[i])}>
           {songs[i].artist} <b>{songs[i].title}</b>
         </a>
       )
@@ -75,15 +91,16 @@ export default class App extends React.Component {
         subtitle = `> ${this.state.chord} chord`;
         break;
       case 'songs':
-        subtitle = `> `;
+        subtitle = `> ${this.state.song}`;
         break;
     }
     return (
       <div>
         <h1 className="title">Banjo <span>{subtitle}</span></h1>
+        <Searchbar />
         <div className="row">
           <div className="col-md-10">
-            <Fretboard fretboard={this.fretboard()} highlighted={this.state.fingering}/>
+            <Fretboard fretboard={this.fretboard()} short={this.state.menu == 'songs'} highlighted={this.state.fingering}/>
           </div>
           { (this.state.menu == 'chords') ? (
           <div className="col-md-2 info chords">
@@ -93,6 +110,9 @@ export default class App extends React.Component {
             </div>
             <ChordChart chord={this.state.chord} fingering={this.state.fingering}/>
           </div>
+          ) : null}
+          { (this.state.menu == 'songs') ? (
+            <SongGame/>
           ) : null}
         </div>
         <div className="row menu">

@@ -13,13 +13,33 @@ h1.title {
     color: #bbb;
   }
 }
-
+.searchbar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 24%;
+  margin-left: -12%;
+  margin-top: 10px;
+  border: none;
+  border-bottom: 1px solid;
+  padding: 3px 6px;
+  text-align: center;
+  &:focus {
+    outline: none;
+    border-bottom-width: 3px;
+  }
+}
 .fretboard-container {
   height: 400px;
   width: 100%;
   overflow: hidden;
   box-shadow: inset 0 0 50px 50px #FFF;
   position: relative;
+  left: 0;
+  transition: left 1000ms ease-in-out;
+  &.short {
+    left: -500px;
+  }
   .body {
     width: 500px;
     height: 500px;
@@ -97,6 +117,14 @@ h1.title {
         height: 30px;
         width: 47px;
         padding: 0 10px;
+        z-index: 100;
+        &:hover {
+          cursor: pointer;
+          background: #eee;
+        }
+        &:active {
+          background: #ddd;
+        }
         &.active {
           background: #aaa;
         }
@@ -108,6 +136,7 @@ h1.title {
       position: absolute;
       right: 0;
       top: -10%;
+      pointer-events: none;
       span {
         width: 100%;
         height: 20%;
@@ -135,12 +164,22 @@ h1.title {
   }
 }
 .menu {
+  margin-top: 50px;
   h2 {
 
   }
   a {
     display: block;
     color: #ccc;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    &:hover {
+      background: #f1f1f1;
+    }
+    &.selected {
+      background: #ddd;
+    }
   }
 }
 .chordCanvas {
