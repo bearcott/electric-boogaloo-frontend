@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../index.scss';
 import React from 'react';
 
-export default ({name, note, octave})=>{
+export default ({name, note, octave, isActive})=>{
   const url = require(`../static/${name}_${note}${octave}_very-long_forte_normal.mp3`);
   let audio;
 
@@ -12,7 +12,7 @@ export default ({name, note, octave})=>{
     audio.play();
   }
   return (
-    <div onClick={doClick} className="note">
+    <div onClick={doClick} className={"note "+((isActive)?"active":'')}>
       {note}
       <audio src={url} ref={x=>audio=x}></audio>
     </div>

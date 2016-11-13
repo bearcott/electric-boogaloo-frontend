@@ -4,20 +4,146 @@
     color: white;
     padding: 5px;
 }
-
-.note {
-  width: 30px;
-  height: 30px;
-  background: #ddd;
-  border-bottom: 1px solid #eee;
+h1,h2,h3,h4 {
+  font-weight: 100;
 }
-.fret {
-  float: left;
-  border-left: 5px solid;
+h1.title {
+  span {
+    font-size: 0.5em;
+    color: #bbb;
+  }
+}
+
+.fretboard-container {
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: inset 0 0 50px 50px #FFF;
+  position: relative;
+  .body {
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    top: -100px;
+    right: 580px;
+    border-radius: 100%;
+    border: 6px solid;
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      box-shadow: 0 0 0 40px #555;
+      z-index: -1;
+    }
+  }
+  .fretboard {
+    position: absolute;
+    height: 120px;
+    width: 80%;
+    top: 50%;
+    margin-top: -100px;
+    right: 200px;
+    .head {
+      position: absolute;
+      left: 100%;
+      width: 180px;
+      height: 100%;
+      background: #555;
+      z-index: -1;
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 100%;
+        width: 100%;
+        border: 10px solid transparent;
+        border-left-width: 90px;
+        border-right-width: 90px;
+        border-bottom-color: #555;
+        border-right-color: #555;
+      }
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        border: 10px solid transparent;
+        border-left-width: 90px;
+        border-right-width: 90px;
+        border-top-color: #555;
+        border-right-color: #555;
+      }
+    }
+    .fret {
+      width: 50px;
+      height: 120px;
+      border-left: 3px solid;
+      float: right;
+      text-align: left;
+      background: #ddd;
+      &:first-child {
+        width: 0;
+        color: #FFF;
+        .note.active {
+          background: none;
+        }
+      }
+      .note {
+        height: 30px;
+        width: 47px;
+        padding: 0 10px;
+        &.active {
+          background: #aaa;
+        }
+      }
+    }
+    .strings {
+      width: 90%;
+      height: 120%;
+      position: absolute;
+      right: 0;
+      top: -10%;
+      span {
+        width: 100%;
+        height: 20%;
+        display: block;
+        border-bottom: 2px solid rgba(0,0,0,0.1);
+      }
+    }
+  }
+}
+.info {
+  margin-top: 70px;
+  &.chords {
+    text-align: center;
+    overflow: hidden;
+    span {
+      color: #ddd;
+    }
+    h1 {
+      margin-bottom: 0;
+    }
+    .chordCanvas {
+      display: block;
+      margin: auto;
+    }
+  }
 }
 .menu {
-  
   h2 {
 
   }
+  a {
+    display: block;
+    color: #ccc;
+  }
+}
+.chordCanvas {
+  width: 95px;
+  overflow: hidden;
 }

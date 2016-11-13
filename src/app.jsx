@@ -4,11 +4,12 @@ import React from 'react';
 import Fretboard from './components/Fretboard';
 import ChordChart from './components/ChordChart';
 import songs from './static/songs';
+import chordGenerator from './utils/chordGenerator';
+
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.canvas = 'lmao';
     this.notes = ['G','Gs','A','As','B','C','Cs','D','Ds','E','F','Fs'];
     this.tuning = ['G','C','E','A'];
     this.state = {
@@ -36,38 +37,63 @@ export default class App extends React.Component {
   suggestedChords(notes) {
     return (
       notes.filter(note=>note.indexOf('s')==-1).map(note=>(
-        <a className="" key={note} onClick={this.showChords(note)}>
+        <a className="" key={note} onClick={()=>this.showChords(note)}>
           {note} Major
         </a>
       ))
     )
   }
   showChords(note) {
-
+    console.log(note);
+    this.setState({
+      chord: note,
+      menu: 'chords',
+      fingering: chordGenerator(note)[0]
+    })
   }
   showSongs(note) {
 
   }
   suggestedSongs() {
+    const links = [];
     for (let i=0;i<10;i++) {
-      return (
-        <a className="" key={i} onClick={this.showSongs(songs[i])}>
-          {songs[i].title}
+      links.push(
+        <a className="" key={i} onClick={()=>this.showSongs(songs[i])}>
+          {songs[i].artist} <b>{songs[i].title}</b>
         </a>
       )
     }
+    return links
   }
   componentDidMount() {
+
   }
   render() {
+    let subtitle = '';
+    switch (this.state.menu) {
+      case 'chords':
+        subtitle = `> ${this.state.chord} chord`;
+        break;
+      case 'songs':
+        subtitle = `> `;
+        break;
+    }
     return (
       <div>
-        <h1>Banjo</h1>
-        <ChordChart chord="C"/>
+        <h1 className="title">Banjo <span>{subtitle}</span></h1>
         <div className="row">
-          <div className="col-md-12">
-            <Fretboard fretboard={this.fretboard()}/>
+          <div className="col-md-10">
+            <Fretboard fretboard={this.fretboard()} highlighted={this.state.fingering}/>
           </div>
+          { (this.state.menu == 'chords') ? (
+          <div className="col-md-2 info chords">
+            <div className="title">
+              <span>chord</span>
+              <h1>{this.state.chord}</h1>
+            </div>
+            <ChordChart chord={this.state.chord} fingering={this.state.fingering}/>
+          </div>
+          ) : null}
         </div>
         <div className="row menu">
           <div className="col-md-4">
