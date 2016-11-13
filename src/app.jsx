@@ -170,11 +170,11 @@ export default class App extends React.Component {
           userfingering: d.neck.reverse(),
           userclicked: d.body.reverse().map((x,i)=>{
             if (x)
-              return d.neck.reverse()[i]
+              return d.neck[i]
             else
               return null
           }),
-          userbody: d.body.reverse()
+          userbody: d.body
         })
       });
     },50);
@@ -196,7 +196,7 @@ export default class App extends React.Component {
         <Searchbar />
         <div className="row">
           <div className="col-md-10">
-            <Fretboard fretboard={this.fretboard()} short={this.state.menu == 'songs'} highlighted={this.state.userfingering} clicked={this.state.userclicked}/>
+            <Fretboard fretboard={this.fretboard()} short={this.state.menu == 'songs'} highlighted={this.state.userfingering} userbody={this.state.userbody} clicked={this.state.userclicked}/>
           </div>
           { (this.state.menu == 'chords') ? (
           <div className="col-md-2 info chords">
