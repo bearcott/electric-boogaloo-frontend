@@ -3,8 +3,9 @@ import styles from '../index.scss';
 import React from 'react';
 import Note from './Note';
 
-export default ({fretboard, highlighted, short})=>{
+export default ({fretboard, highlighted, clicked, short})=>{
   highlighted = (highlighted) ? highlighted : "";
+  clicked = (clicked) ? clicked : "";
   return (
     <div className={"fretboard-container "+((short)?'short':'')}>
       <div className="body">
@@ -19,7 +20,9 @@ export default ({fretboard, highlighted, short})=>{
                     key={note.note+fretNum}
                     name="banjo" note={note.note}
                     octave={note.octave}
-                    isActive={(parseInt(highlighted[noteNum]) == fretNum)}/>
+                    isActive={(parseInt(highlighted[noteNum]) == fretNum)}
+                    isClicked={(parseInt(clicked[noteNum]) == fretNum)}
+                    />
                 ))
               }
             </div>

@@ -8,6 +8,7 @@ import SongGame from './components/SongGame';
 import songs from './static/songs';
 import chordGenerator from './utils/chordGenerator';
 import teoria from './utils/teoria';
+import 'whatwg-fetch';
 
 
 
@@ -17,6 +18,7 @@ export default class App extends React.Component {
     this.notes = ['G','Gs','A','As','B','C','Cs','D','Ds','E','F','Fs'];
     this.tuning = ['G','C','E','A'];
     this.interval = null;
+    this.server = "http://sfgepxlmgr.localtunnel.me/";
     this.state = {
       menu: null,
       chord: 'C',
@@ -143,6 +145,21 @@ export default class App extends React.Component {
     }
     return links
   }
+  componentDidMount() {
+    const req = setInterval(()=>{
+      fetch(this.server).then((d)=>d.json()).then(d=>{
+        this.setState({
+          userfingering: d.neck.reverse(),
+          userclicked: d.body.reverse().map((x,i)=>{
+            if (x)
+              return d.neck.reverse()[i]
+            else
+              return null
+          })
+        })
+      });
+    },100);
+  }
   render() {
     let subtitle = '';
     let gameText = '';
@@ -160,7 +177,7 @@ export default class App extends React.Component {
         <Searchbar />
         <div className="row">
           <div className="col-md-10">
-            <Fretboard fretboard={this.fretboard()} short={this.state.menu == 'songs'} highlighted={this.state.fingering}/>
+            <Fretboard fretboard={this.fretboard()} short={this.state.menu == 'songs'} highlighted={this.state.userfingering} clicked={this.state.userclicked}/>
           </div>
           { (this.state.menu == 'chords') ? (
           <div className="col-md-2 info chords">
